@@ -95,33 +95,39 @@ export default function Menu({ language }: MenuProps) {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-semibold">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-4xl relative w-[80%]">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl"
+            >
+              ✕
+            </button>
+
+            {/* Modal Content */}
+            <div className="flex flex-col space-y-4">
+              <h3 className="text-xl font-semibold text-center">
                 {language === "pt" ? "Nossa Carta" : "Our Menu"}
               </h3>
-              <button
-                onClick={() => setShowModal(false)}
-                className="text-gray-600 hover:text-gray-900"
-              >
-                ✕
-              </button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {menuPDFs.map((pdf: any, index: number) => (
-                <div key={index} className="text-center">
-                  <img
-                    src={pdf.asset.url}
-                    alt={`Menu ${index + 1}`}
-                    className="rounded-lg border shadow max-w-full h-auto"
-                  />
-                  <p className="mt-2 text-gray-600">
-                    {language === "pt"
-                      ? `Carta ${index + 1}`
-                      : `Menu ${index + 1}`}
-                  </p>
-                </div>
-              ))}
+              <div className="overflow-x-scroll flex space-x-4 pb-4 md:justify-center">
+                {menuPDFs.map((pdf: any, index: number) => (
+                  <div
+                    key={index}
+                    className="flex-shrink-0 w-[80%] md:w-[45%] text-center"
+                  >
+                    <img
+                      src={pdf.asset.url}
+                      alt={`Menu ${index + 1}`}
+                      className="rounded-lg border shadow max-w-full h-auto"
+                    />
+                    <p className="mt-2 text-gray-600">
+                      {language === "pt"
+                        ? `Carta ${index + 1}`
+                        : `Menu ${index + 1}`}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
